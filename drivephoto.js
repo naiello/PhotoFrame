@@ -52,8 +52,7 @@ exports.init = function (callback) {
 };
 
 exports.listPhotos = function (callback) {
-  var query = '"' + config.drive.sharedFolderId + '" in parents and ' +
-    'mimeType = "image/jpeg"'
+  var query = "mimeType = 'image/jpeg' and '"+config.drive.sharedFolderId+"' in parents";
 
   if (!client) {
     console.error('Not authenticated');
@@ -70,7 +69,7 @@ exports.listPhotos = function (callback) {
 exports.downloadFile = function (destPath, fileId, callback) {
   var service = google.drive('v3');
   var dest = fs.createWriteStream(destPath);
-  service.files.get({fileId: fileId, alt: 'media'}).pipe(dest);
+  service.files.get({auth: client, fileId: fileId, alt: 'media'}).pipe(dest);
 }
 
 /* Private helper methods */
@@ -104,7 +103,7 @@ function storeToken(token) {
   try {
     fs.mkdirSync(TOKEN_DIR);
   } catch (error) {
-    if (error.code != 'EEXIST') {
+    if (error.code !== 'EEXIST') {
       console.error(error);
     }
   }
