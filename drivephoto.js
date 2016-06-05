@@ -7,7 +7,7 @@
 'use strict';
 
 var fs = require('fs'),
-    config = require('./config'),
+    config = require('./config.js'),
     google = require('googleapis'),
     googleAuth = require('google-auth-library'),
     readline = require('readline');

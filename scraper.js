@@ -38,7 +38,7 @@ function syncGoogleDrive() {
       console.error(error);
       return;
     }
-    var driveNameList = response.files.map((file) => file.name);
+    var driveNameList = response.files.map(function (file) { return file.name; });
     var localNameList = [];
 
     // delete files that have been removed from drive
