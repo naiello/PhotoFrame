@@ -37,7 +37,7 @@ def next_slide():
     next_photo = image_source + random.choice(photos)
     try:
         image = pygame.image.load(next_photo)
-    except Error:
+    except:
         return
 
     if delete_after:
@@ -53,11 +53,15 @@ def next_slide():
 
 if __name__ == '__main__':
     while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
-                running = False
+        for i in xrange(0, SLIDE_TIME):
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
+                    running = False
+                    break
 
-        pygame.time.wait(SLIDE_TIME * 1000)
+            if not running:
+                break
+            pygame.time.wait(1000)
 
         image = next_slide()
         screen.fill((0, 0, 0))
