@@ -28,7 +28,6 @@ drive.init(function() {
   // sync periodically forever
   setInterval(syncDailyCute, DCUTE_REFRESH_RATE);
   setInterval(syncGoogleDrive, DRIVE_REFRESH_RATE);
-  setInterval(showNextSlide, SLIDE_TIME);
 });
 
 /* Synchronizes the local folder with Google Drive */
@@ -99,26 +98,5 @@ function syncDailyCute() {
       dailycute.downloadRandom(DCUTE_DIR);
       numImages++;
     }, 500); // every half second to not spam the API
-  });
-}
-
-/* Copies the next slide to current.jpg */
-function showNextSlide() {
-  var r = Math.random();
-  var source = DRIVE_DIR;
-  var deleteAfterShowing = false;
-  if (r < PROP_DCUTE) {
-    deleteAfterShowing = true;
-    source = DCUTE_DIR;
-  }
-
-  fs.readdir(source, function (err, files) {
-    var rfile = Math.floor(files.length * Math.random());
-    var nextPhoto = source + files[rfile];
-
-    fs.createReadStream(nextPhoto).pipe(fs.createWriteStream(PHOTO_DIR + 'current.jpg'));
-    if (deleteAfterShowing) {
-      fs.unlink(nextPhoto);
-    }
   });
 }
