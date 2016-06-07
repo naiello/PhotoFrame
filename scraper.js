@@ -56,9 +56,13 @@ function syncGoogleDrive() {
     });
 
     // download new files from drive
+    var timeout = 0;
     response.files.forEach(function(file) {
       if (!fs.existsSync()) {
-        drive.downloadFile(DRIVE_DIR + file.name, file.id);
+        timeout += 1500;
+        setTimeout(function() {
+            drive.downloadFile(DRIVE_DIR + file.name, file.id);
+        }, timeout);
       }
     });
   });
