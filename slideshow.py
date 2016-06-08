@@ -10,8 +10,8 @@ import os
 from PIL import Image, ExifTags
 from datetime import datetime
 
-SCREEN_W = 640
-SCREEN_H = 480
+SCREEN_W = 320
+SCREEN_H = 240
 PROP_DCUTE = 0.5
 SLIDE_TIME = 60
 PHOTO_DIR = os.path.expanduser('~') + '/photoframe/photos/'
@@ -97,6 +97,7 @@ if __name__ == '__main__':
     random.seed(datetime.now())
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_W, SCREEN_H), pygame.FULLSCREEN)
+    pygame.mouse.set_visible(False)
     running = True
     while running:
         for i in xrange(0, SLIDE_TIME):
