@@ -16,7 +16,7 @@ var DCUTE_DIR = PHOTO_DIR + 'dailycute/';
 var DRIVE_DIR = PHOTO_DIR + 'googledrive/';
 
 var SLIDE_TIME = 5000; // photos stay up for 1 minute each
-var DRIVE_REFRESH_RATE = 300000; // every 5 minutes
+var DRIVE_REFRESH_RATE = 900000; // every 15 minutes
 var DCUTE_REFRESH_RATE = 120000; // every 2 minutes
 
 /* Init/auth Google Drive connection */
@@ -50,6 +50,7 @@ function syncGoogleDrive() {
 
       files.forEach(function(file) {
         if (driveNameList.indexOf(file) === -1) {
+          console.log('deleting ' +file);
           fs.unlink(DRIVE_DIR + file);
         }
       });
@@ -58,7 +59,7 @@ function syncGoogleDrive() {
     // download new files from drive
     var timeout = 0;
     response.files.forEach(function(file) {
-      if (!fs.existsSync()) {
+      if (!fs.existsSync(DRIVE_DIR + file.name)) {
         timeout += 1500;
         setTimeout(function() {
             drive.downloadFile(DRIVE_DIR + file.name, file.id);

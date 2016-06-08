@@ -20,7 +20,7 @@ var CLIENT_KEYFILE = 'drive_client_secret.json';
 
 var credentials;
 var client;
-
+var service = google.drive('v3');
 exports.init = function (callback) {
   // load app key and secret
   fs.readFile(CLIENT_KEYFILE, function (error, content) {
@@ -59,7 +59,7 @@ exports.listPhotos = function (callback) {
     return;
   }
 
-  var service = google.drive('v3');
+  //var service = google.drive('v3');
   service.files.list({
     auth: client,
     q: query
@@ -67,7 +67,6 @@ exports.listPhotos = function (callback) {
 };
 
 exports.downloadFile = function (destPath, fileId, callback) {
-  var service = google.drive('v3');
   var dest = fs.createWriteStream(destPath);
   service.files.get({auth: client, fileId: fileId, alt: 'media'}).pipe(dest);
 }
