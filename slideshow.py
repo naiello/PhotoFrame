@@ -10,8 +10,8 @@ import os
 from PIL import Image, ExifTags
 from datetime import datetime
 
-SCREEN_W = 320
-SCREEN_H = 240
+SCREEN_W = 480
+SCREEN_H = 320
 PROP_DCUTE = 0.5
 SLIDE_TIME = 180
 PHOTO_DIR = os.path.expanduser('~') + '/photoframe/photos/'
@@ -99,25 +99,23 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((SCREEN_W, SCREEN_H), pygame.FULLSCREEN)
     pygame.mouse.set_visible(False)
     running = True
-    first_slide = True
     while running:
-        if not first_slide:
-	        for i in xrange(0, SLIDE_TIME):
-	            for event in pygame.event.get():
-	                if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
-	                    running = False
-	                    break
-	
-	            if not running:
-	                break
-	            pygame.time.wait(1000)
-
-        first_slide = False
         image = next_slide()
         screen.fill((0, 0, 0))
         if image is not None:
             imsize = image.get_rect().size
             screen.blit(image, ((SCREEN_W - imsize[0]) / 2, (SCREEN_H - imsize[1]) / 2))
             pygame.display.flip()
+
+        for i in xrange(0, SLIDE_TIME):
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
+                    running = False
+                    break
+
+            if not running:
+                break
+            pygame.time.wait(1000)
+
 
     pygame.quit()
