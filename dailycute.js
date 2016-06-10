@@ -11,7 +11,7 @@ var rest = require('restler'),
 exports.downloadRandom = function(destPath, callback) {
   rest.get('http://api.dailycute.net/v1/posts/random.json')
     .on('complete', function (result) {
-      if (result.post.image_src) {
+      if (result && result.post && result.post.image_src) {
         http.get(result.post.image_src, function (response) {
           var dest = fs.createWriteStream(destPath + '/' + result.post.id + '.jpg');
           response.pipe(dest);

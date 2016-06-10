@@ -13,7 +13,7 @@ from datetime import datetime
 SCREEN_W = 320
 SCREEN_H = 240
 PROP_DCUTE = 0.5
-SLIDE_TIME = 5
+SLIDE_TIME = 60
 PHOTO_DIR = os.path.expanduser('~') + '/photoframe/photos/'
 DCUTE_DIR = PHOTO_DIR + 'dailycute/'
 DRIVE_DIR = PHOTO_DIR + 'googledrive/'
