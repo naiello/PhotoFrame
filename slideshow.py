@@ -11,10 +11,10 @@ import re
 from PIL import Image, ExifTags
 from datetime import datetime
 
-SCREEN_W = 320
-SCREEN_H = 240
+SCREEN_W = 480
+SCREEN_H = 320
 PROP_DCUTE = 0.5
-SLIDE_TIME = 60
+SLIDE_TIME = 180
 PHOTO_DIR = os.path.expanduser('~') + '/photoframe/photos/'
 DCUTE_DIR = PHOTO_DIR + 'dailycute/'
 DRIVE_DIR = PHOTO_DIR + 'googledrive/'
@@ -103,6 +103,13 @@ if __name__ == '__main__':
     pygame.mouse.set_visible(False)
     running = True
     while running:
+        image = next_slide()
+        screen.fill((0, 0, 0))
+        if image is not None:
+            imsize = image.get_rect().size
+            screen.blit(image, ((SCREEN_W - imsize[0]) / 2, (SCREEN_H - imsize[1]) / 2))
+            pygame.display.flip()
+
         for i in xrange(0, SLIDE_TIME):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
@@ -113,11 +120,5 @@ if __name__ == '__main__':
                 break
             pygame.time.wait(1000)
 
-        image = next_slide()
-        screen.fill((0, 0, 0))
-        if image is not None:
-            imsize = image.get_rect().size
-            screen.blit(image, ((SCREEN_W - imsize[0]) / 2, (SCREEN_H - imsize[1]) / 2))
-            pygame.display.flip()
 
     pygame.quit()
