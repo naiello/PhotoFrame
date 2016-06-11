@@ -7,6 +7,7 @@ import pygame
 import pygame.time
 import random
 import os
+import re
 from PIL import Image, ExifTags
 from datetime import datetime
 
@@ -17,6 +18,8 @@ SLIDE_TIME = 60
 PHOTO_DIR = os.path.expanduser('~') + '/photoframe/photos/'
 DCUTE_DIR = PHOTO_DIR + 'dailycute/'
 DRIVE_DIR = PHOTO_DIR + 'googledrive/'
+FILE_FORMATS = ['.jpg', '.png', '.mp4', '.mpg']
+FILE_FORMATS_RE = '(' + '|'.join(FILE_FORMATS).replace('.', '\\.') + ')$'
 
 # Find key corresponding to image orientation EXIF tag
 # TODO: Find a cleaner way to extract EXIF information
@@ -53,7 +56,7 @@ def next_slide():
         image_source = DCUTE_DIR
         delete_after = True
 
-    photos = [f for f in os.listdir(image_source) if '.jpg' in f or '.JPG' in f]
+    photos = [f for f in os.listdir(image_source) if re.search(FILE_FORMATS_RE, f, re.IGNORECASE)]
     if len(photos) == 0:
         return
 
