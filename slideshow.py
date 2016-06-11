@@ -18,7 +18,7 @@ SLIDE_TIME = 180
 PHOTO_DIR = os.path.expanduser('~') + '/photoframe/photos/'
 DCUTE_DIR = PHOTO_DIR + 'dailycute/'
 DRIVE_DIR = PHOTO_DIR + 'googledrive/'
-FILE_FORMATS = ['.jpg', '.png', '.mp4', '.mpg']
+FILE_FORMATS = ['.jpg', '.png']
 FILE_FORMATS_RE = '(' + '|'.join(FILE_FORMATS).replace('.', '\\.') + ')$'
 
 # Find key corresponding to image orientation EXIF tag
