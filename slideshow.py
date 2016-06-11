@@ -106,6 +106,8 @@ if __name__ == '__main__':
             imsize = image.get_rect().size
             screen.blit(image, ((SCREEN_W - imsize[0]) / 2, (SCREEN_H - imsize[1]) / 2))
             pygame.display.flip()
+        else:
+            continue
 
         for i in xrange(0, SLIDE_TIME):
             for event in pygame.event.get():
